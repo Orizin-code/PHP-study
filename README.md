@@ -10,8 +10,8 @@ PHPの基礎学習で学んだものをpushしていく。
   - Laravel環境構築
   - MySQL接続
 
-実装完了リスト
-Homebrewを最新にアップデート　　
-PHP@7.4をインストール　　
-MAMPのインストール　　
-`http://localhost:8888/` にてサーバーが立ち上がること確認　　
+実装完了リスト  
+Homebrewを最新にアップデート  　　
+PHP@7.4をインストール  
+MAMPのインストール  
+`http://localhost:8888/` にてサーバーが立ち上がること確認  
