@@ -15,8 +15,8 @@ $enemy_attack = 10;
 $enemy_defense = 10;
 
 //-------キャラクターが攻撃時の処理------------------------
-//敵に与えるダメージの計算
-$enemy_damage = $brave_attack - $enemy_defense;
+//敵に与えるダメージの計算  範囲オブジェクト 3,5
+$enemy_damage = $brave_attack - $enemy_defense + mt_rand(3,5);
 //敵のHPにダメージを与える
 $enemy_hp = $enemy_hp - $enemy_damage;
 
@@ -42,8 +42,8 @@ if($enemy_hp > 20){
 echo "<br>";
 
 //--------敵がキャラクターに攻撃時の処理--------------------
-//敵から受けたダメージの計算
-$brave_damage = $enemy_attack - $brave_defense;
+//敵から受けたダメージの計算 範囲オブジェクト 3,5
+$brave_damage = $enemy_attack - $brave_defense + mt_rand(3,5);
 //敵からHPにダメージを受ける
 $brave_hp = $brave_hp - $brave_damage;
 
