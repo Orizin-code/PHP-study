@@ -15,10 +15,18 @@ $enemy_attack = 10;
 $enemy_defense = 10;
 
 //-------キャラクターが攻撃時の処理------------------------
-//敵に与えるダメージの計算  範囲オブジェクト 3,5
-$enemy_damage = $brave_attack - $enemy_defense + mt_rand(3,5);
-//敵のHPにダメージを与える
-$enemy_hp = $enemy_hp - $enemy_damage;
+$select_attack = mt_rand(0,3);
+if($select_attack == 0){
+  echo "かいしんのいちげき";
+  $enemy_damage = $brave_attack - $enemy_defense + mt_rand(10,20);
+  $enemy_hp = $enemy_hp - $enemy_damage;
+}else{
+  echo "つうじょうこうげき";
+  //敵に与えるダメージの計算  範囲オブジェクト 3,5
+  $enemy_damage = $brave_attack - $enemy_defense + mt_rand(3,5);
+  //敵のHPにダメージを与える
+  $enemy_hp = $enemy_hp - $enemy_damage;
+}
 
 //敵に与えるダメージと残りHPの表示
 echo "敵に".$enemy_damage."のダメージを与えた。";
@@ -42,10 +50,18 @@ if($enemy_hp > 20){
 echo "<br>";
 
 //--------敵がキャラクターに攻撃時の処理--------------------
-//敵から受けたダメージの計算 範囲オブジェクト 3,5
-$brave_damage = $enemy_attack - $brave_defense + mt_rand(3,5);
-//敵からHPにダメージを受ける
-$brave_hp = $brave_hp - $brave_damage;
+$select_attack = mt_rand(0,3);
+if($select_attack == 0){
+  echo "かいしんのいちげき";
+  $brave_damage = $enemy_attack - $brave_defense + mt_rand(10,20);
+  $brave_hp = $brave_hp - $brave_damage;
+}else{
+  echo "つうじょうこうげき";
+  //敵から受けたダメージの計算 範囲オブジェクト 3,5
+  $brave_damage = $enemy_attack - $brave_defense + mt_rand(3,5);
+  //敵からHPにダメージを受ける
+  $brave_hp = $brave_hp - $brave_damage;
+}
 
 //キャラクターが受けるダメージと残りHPの表示
 echo "敵から".$brave_damage."のダメージを受けた。";
