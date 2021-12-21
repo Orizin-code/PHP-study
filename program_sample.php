@@ -18,16 +18,29 @@ foreach ($products as $key => $product) {
 };
 
 // 商品を選択
-echo PHP_EOL;
-echo "商品の番号を選択 >";
-$selectProductNum = (int)fgets(STDIN);
+while (true) {
+  echo "商品の番号を選択 >";
+  $selectProductNum = (int)fgets(STDIN);
+  if ($selectProductNum >= 1 && $selectProductNum <= 4){
+      break;
+  }
+  echo "1~4の番号を入力してください。";
+  echo PHP_EOL;
+}
 $chosenProduct = $products[$selectProductNum - 1];
 
 // 個数を決定
-echo $chosenProduct['name'] . "ですね。何個買いますか？";
-echo PHP_EOL;
-echo "個数を入力>";
-$quantityOfProduct = (int)fgets(STDIN);
+  echo $chosenProduct['name'] . "ですね。何個買いますか？";
+  echo PHP_EOL;
+while (true) {
+  echo "個数を入力>";
+  $quantityOfProduct = (int)fgets(STDIN);
+  if ($quantityOfProduct >= 1) {
+      break;
+  }
+  echo "1個以上を入力してください。";
+  echo PHP_EOL;
+}
 
 // 合計金額を計算
    // 合計   =       商品単価         +          個数
