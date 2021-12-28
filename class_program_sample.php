@@ -49,6 +49,31 @@ class Greengrocer {
 
 }
 
+// Userクラスを定義
+class User
+{
+    // 商品を選択
+    public static $chosenProduct;
+    // 「商品を選択する」メソッド
+    public function chooseProduct($products)
+    {
+        while (true) {
+            echo "商品の番号を選択>";
+            $selectProductId = (int)fgets(STDIN);
+            foreach ($products as $product) {
+                if ($product->id === $selectProductId) {
+                    User::$chosenProduct = $product;
+                }
+            }
+            if (isset(User::$chosenProduct)) {
+                break;
+            }
+            echo $products[0]->id  . "~" . end($products)->id . "の番号を入力してください。";
+            echo PHP_EOL;
+        }
+    }
+}
+
 // 商品データ1
 $productParams1 = [
     ['name' => 'トマト', 'price' => '100'],
@@ -65,7 +90,11 @@ $addingProductParams1 = [
 
 // Greengrocerクラスインスタンス生成
 $greengrocer1 = new Greengrocer($productParams1);
-// 商品を登録するメソッドを呼び出す
+// 商品を登録
 $greengrocer1->registerProduct($addingProductParams1);
+// Userクラスインスタンス生成
+$user = new User();
 // 商品を表示
 $greengrocer1->dispProducts();
+// 商品を選択するメソッドを呼び出し
+$user->chooseProduct($greengrocer1->products);
