@@ -21,7 +21,7 @@ class Greengrocer {
 
     // インスタンス生成と同時に$productsを定義
     public $products;
-
+    // 商品を選択するメソッド
     public function __construct($productParams)
     {
         $this->registerProduct($productParams);
@@ -47,6 +47,13 @@ class Greengrocer {
         }
     }
 
+    //「個数を質問する」メソッドを定義、引数とコードを調整
+    public function askQuantity($chosenProduct)
+    {
+        echo $chosenProduct->name. "ですね。何個買いますか？";
+        echo PHP_EOL;
+    }
+
 }
 
 // Userクラスを定義
@@ -63,12 +70,27 @@ class User
             foreach ($products as $product) {
                 if ($product->id === $selectProductId) {
                     User::$chosenProduct = $product;
+                    break;
                 }
             }
             if (isset(User::$chosenProduct)) {
                 break;
             }
             echo $products[0]->id  . "~" . end($products)->id . "の番号を入力してください。";
+            echo PHP_EOL;
+        }
+    }
+
+    // 個数を決定する（★ここを追加★）
+    public function decideQuantity()
+    {
+        while (true) {
+            echo "個数を入力>";
+            User::$quantityOfProduct = (int)fgets(STDIN);
+            if (User::$quantityOfProduct >= 1) {
+                break;
+            }
+            echo "1個以上選んでください。";
             echo PHP_EOL;
         }
     }
@@ -98,3 +120,7 @@ $user = new User();
 $greengrocer1->dispProducts();
 // 商品を選択するメソッドを呼び出し
 $user->chooseProduct($greengrocer1->products);
+// 引数を設定し、「個数を質問する」メソッドを呼び出す
+$greengrocer1->askQuantity(User::$chosenProduct);
+// 個数を決定
+$user->decideQuantity();
