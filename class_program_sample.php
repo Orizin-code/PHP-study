@@ -5,7 +5,6 @@ class Product
     public $id;
     public $name;
     public $price;
-    // クラス変数を定義
     public static $count = 0;
 
     public function __construct(array $array)
@@ -16,12 +15,10 @@ class Product
     }
 }
 
-// Greengrocerクラスを定義
-class Greengrocer {
-
-    // インスタンス生成と同時に$productsを定義
+class Greengrocer
+{
     public $products;
-    // 商品を選択するメソッド
+
     public function __construct($productParams)
     {
         $this->registerProduct($productParams);
@@ -40,6 +37,7 @@ class Greengrocer {
     {
         echo "いらっしゃいませ！商品を選んでください。";
         echo PHP_EOL;
+        echo PHP_EOL;
 
         foreach ($this->products as $product) {
             echo $product->id . "." . $product->name . "（" . $product->price . "円）";
@@ -47,21 +45,35 @@ class Greengrocer {
         }
     }
 
-    //「個数を質問する」メソッドを定義、引数とコードを調整
-    public function askQuantity($chosenProduct)
+    // 個数を質問
+    public function askQuantity()
     {
-        echo $chosenProduct->name. "ですね。何個買いますか？";
+        echo User::$chosenProduct->name . "ですね。何個買いますか？";
         echo PHP_EOL;
     }
 
+    // 引数を無くし、メソッド中も調整
+    public function calculateCharges()
+    {
+        $totalPrice = User::$chosenProduct->price * User::$quantityOfProduct;
+        if (User::$quantityOfProduct >= 5) {
+            echo "5個以上なので10％割引となります！";
+            echo PHP_EOL;
+            $totalPrice *= 0.9;
+        }
+        echo "合計金額は" . floor($totalPrice) . "円です。";
+        echo PHP_EOL;
+        echo "お買い上げありがとうございました！";
+        echo PHP_EOL;
+    }
 }
 
-// Userクラスを定義
 class User
 {
-    // 商品を選択
     public static $chosenProduct;
-    // 「商品を選択する」メソッド
+    public static $quantityOfProduct;
+
+    // 商品を選択
     public function chooseProduct($products)
     {
         while (true) {
@@ -81,7 +93,7 @@ class User
         }
     }
 
-    // 個数を決定する（★ここを追加★）
+    // 個数を決定する
     public function decideQuantity()
     {
         while (true) {
@@ -96,7 +108,7 @@ class User
     }
 }
 
-// 商品データ1
+// 商品データ
 $productParams1 = [
     ['name' => 'トマト', 'price' => '100'],
     ['name' => 'きゅうり', 'price' => '200'],
@@ -104,23 +116,32 @@ $productParams1 = [
     ['name' => 'なす', 'price' => '400']
 ];
 
-// 追加商品データaddingProductParams1を定義
+// $productParams1 の商品を持つ八百屋の開店
+$greengrocer1 = new Greengrocer($productParams1);
+
+// 追加商品データ
 $addingProductParams1 = [
     ['name' => 'ごぼう', 'price' => '250'],
     ['name' => 'れんこん', 'price' => '350']
 ];
 
-// Greengrocerクラスインスタンス生成
-$greengrocer1 = new Greengrocer($productParams1);
-// 商品を登録
+// 商品を登録（$addingProductParams1 の商品を追加）
 $greengrocer1->registerProduct($addingProductParams1);
-// Userクラスインスタンス生成
+
+// お客さんの来店
 $user = new User();
+
 // 商品を表示
 $greengrocer1->dispProducts();
-// 商品を選択するメソッドを呼び出し
+
+// 商品を選択
 $user->chooseProduct($greengrocer1->products);
-// 引数を設定し、「個数を質問する」メソッドを呼び出す
-$greengrocer1->askQuantity(User::$chosenProduct);
+
+// 個数を質問（★引数なしに変更★）
+$greengrocer1->askQuantity();
+
 // 個数を決定
 $user->decideQuantity();
+
+// 金額金額を計算（★引数なしに変更★）
+$greengrocer1->calculateCharges();
